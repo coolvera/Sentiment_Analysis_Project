@@ -1,0 +1,57 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Model files
+*.joblib
+*.h5
+*.sav
+*.pkl
+
+# Environment files
+.env
+.venv/
+env/
+venv/
+
+# VSCode and PyCharm project settings
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Flask cache
+instance/
+*.db
+
+# Docker
+*.tar
+*.pid
+docker-compose.override.yml
+
+# Local data
+data/*.csv
+data/*.tsv
+data/*.xlsx
+data/*.json
+
+# Avoid uploading these large files
+model/
+!model/.gitkeep  # keep the folder but not contents
+
+# Heroku files (if you regenerate)
+*.sqlite3
+
+# Ignore compiled notebooks (optional)
+*.nbconvert.ipynb
