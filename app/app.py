@@ -5,8 +5,8 @@ import joblib
 app = Flask(__name__)
 
 # Load the trained model and TF-IDF vectorizer
-model = joblib.load('../model/model.pkl')
-vectorizer = joblib.load('../model/tfidf_vectorizer.pkl')
+model = joblib.load("app/model.pkl")
+vectorizer = joblib.load("app/tfidf_vectorizer.pkl")
 
 @app.route('/')
 def home():
