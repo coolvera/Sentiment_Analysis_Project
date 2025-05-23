@@ -55,3 +55,15 @@ model/
 
 # Ignore compiled notebooks (optional)
 *.nbconvert.ipynb
+
+__pycache__/
+*.pyc
+*.pkl
+*.joblib
+.env
+.venv/
+venv/
+data/*.csv
+model/*
+!model/.gitkeep
+
