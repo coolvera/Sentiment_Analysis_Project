@@ -1,39 +1,35 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template
 import joblib
 import os
 
-# Initialize Flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 
+# Load model and vectorizer
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "model.pkl")
 VECTORIZER_PATH = os.path.join(os.path.dirname(__file__), "tfidf_vectorizer.pkl")
 
 model = joblib.load(MODEL_PATH)
 vectorizer = joblib.load(VECTORIZER_PATH)
 
-# SageMaker expects this endpoint for inference
-@app.route("/invocations", methods=["POST"])
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("index.html")
+
+@app.route("/predict", methods=["POST"])
 def predict():
-    try:
-        data = request.get_json()
-        review = data.get("review", "")
+    review = request.form.get("review", "")
+    prediction = None
 
-        if not review:
-            return jsonify({"error": "Missing 'review' field"}), 400
-
+    if review:
         transformed = vectorizer.transform([review])
         prediction = model.predict(transformed)[0]
 
-        return jsonify({"prediction": prediction})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    return render_template("index.html", review=review, prediction=prediction)
 
-# Optional: Health check route
 @app.route("/ping", methods=["GET"])
 def ping():
     return "OK", 200
 
-# Run the app
-if __name__ == '__main__':
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(debug=False, host="0.0.0.0", port=port)
