@@ -5,9 +5,11 @@ import os
 # Initialize Flask app
 app = Flask(__name__)
 
-# Load the trained model and TF-IDF vectorizer
-model = joblib.load("model.pkl")
-vectorizer = joblib.load("tfidf_vectorizer.pkl")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "model.pkl")
+VECTORIZER_PATH = os.path.join(os.path.dirname(__file__), "tfidf_vectorizer.pkl")
+
+model = joblib.load(MODEL_PATH)
+vectorizer = joblib.load(VECTORIZER_PATH)
 
 # SageMaker expects this endpoint for inference
 @app.route("/invocations", methods=["POST"])
